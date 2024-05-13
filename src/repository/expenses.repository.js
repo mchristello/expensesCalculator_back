@@ -14,4 +14,12 @@ export default class ExpenseRepository {
         const expense = new ExpenseDTO(data);
         return await this.dao.create(expense);
     };
+
+    getByCategory = async (category) => {
+        return this.dao.getByCategory(category);
+    }
+
+    deleteExpense = async(eid) => {
+        return this.dao.deleteExpense(eid);
+    }
 }

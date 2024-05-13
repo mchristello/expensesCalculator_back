@@ -13,4 +13,12 @@ export default class IncomeRepository {
         const income = new IncomeDTO(data);
         return await this.dao.create(income);
     }
+
+    getByCategory = async (category) => {
+        return this.dao.getByCategory(category);
+    }
+
+    deleteIncome = async (iid) => {
+        return this.dao.deleteIncome(iid);
+    }
 }

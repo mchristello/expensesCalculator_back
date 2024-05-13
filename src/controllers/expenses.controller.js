@@ -24,3 +24,30 @@ export const create = async (req, res) => {
         console.log(`Error in expenses.controller: ${error.message}`);
     }
 };
+
+export const getByCategory = async (req, res) => {
+    try {
+        const category = req.params.category
+
+        const searchExpenses = await ExpensesService.getByCategory(category.toLowerCase())
+
+        const result = searchExpenses.length !== 0 ? searchExpenses : `Your serch didn't bring any result.`
+
+        return res.status(200).send({ status: 'success', message: `Data from ${category} category`, payload: result })
+    } catch (error) {
+        console.log(`Error in expenses.controller: ${error.message}`);
+    }
+}
+
+export const deleteExpense = async (req, res) => {
+    try {
+        const eid = req.params.id
+
+        const expenseToDelete = await ExpensesService.deleteExpense(eid)
+
+        return res.status(200).send({ status: 'success', message: 'Expense deleted successfully', payload: expenseToDelete })
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({ status: 'error', message: error.message })
+    }
+}

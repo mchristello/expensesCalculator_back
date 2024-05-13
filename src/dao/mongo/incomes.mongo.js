@@ -19,4 +19,27 @@ export default class Income {
             console.log(`Error in incomes.mongo: ${error.message}`);
         }
     }
+
+    getByCategory = async (category) => {
+        try {
+            const incomeByCategory = await IncomeModel.find({ category: category }).lean().exec();
+            if(!incomeByCategory) {
+                return null;
+            }
+
+            return incomeByCategory;
+        } catch (error) {
+            console.log(`Error in incomes.mongo: ${error.message}`);
+        }
+    }
+
+    deleteIncome = async (iid) => {
+        try {
+            const incomeToDelete = await IncomeModel.deleteOne({ _id: iid });
+
+            return incomeToDelete
+        } catch (error) {
+            console.log(`Error in incomes.mongo: ${error.message}`);
+        }
+    }
 }

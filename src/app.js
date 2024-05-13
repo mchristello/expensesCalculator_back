@@ -12,12 +12,15 @@ import errorHandler from './middlewares/errors.middleware.js'
 import { passportCall } from './utils/utils.js';
 import { __dirname } from './dirname.js';
 import { addLogger } from './utils/logger.js';
+import imap from './imap/imapHadler.js';
+import { bankProcessHandler } from './imap/processHandler/bankProcessHandler.js';
+import { cardProcessHandler } from './imap/processHandler/cardProcessHandler.js';
 // Import Rutes
 import expensesRouter from './routes/expenses.routes.js';
+import incomesRouter from './routes/incomes.routes.js';
 import usersRouter from './routes/users.routes.js';
 import sessionRouter from './routes/sessions.routes.js';
-
-
+import emailRouter from './routes/imap.routes.js';
 
 
 const app = express();
@@ -56,6 +59,19 @@ initializePassport();
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Imap
+imap.on('bankParser', async (transferencia) => {
+    // lógica para transferencias
+    console.log('Transfer detected. Sent to processHandler');
+    bankProcessHandler.add(transferencia);
+});
+
+imap.on('cardParser', (creditCharge) => {
+    // lógica para débitos
+    console.log('Purchase with card detected. Sent to processHandler');
+    cardProcessHandler.add(creditCharge);
+});
+
 
 // Rutes
 app.get('/', (req, res) => {
@@ -64,6 +80,10 @@ app.get('/', (req, res) => {
 
 app.use('/api/expenses', expensesRouter);
 
-app.use('/api/users', passportCall('jwt'), usersRouter)
+app.use('/api/incomes', incomesRouter);
 
-app.use('/session', passportCall('jwt'), sessionRouter)
+app.use('/api/users', passportCall('jwt'), usersRouter);
+
+app.use('/session', passportCall('jwt'), sessionRouter);
+
+app.use('/api/imap', emailRouter);

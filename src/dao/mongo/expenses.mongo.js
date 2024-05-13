@@ -19,4 +19,27 @@ export default class Expense {
             console.log(`Error in expense.mongo: ${error.message}`);            
         }
     }
+
+    getByCategory = async (category) => {
+        try {
+            const categorySearched = await ExpenseModel.find({ category: category }).lean().exec()
+
+            console.log({categorySearched});
+
+            return categorySearched;
+        } catch (error) {
+            console.log(`Error in category.mongo: ${error.message}`);
+        }
+    }
+
+    deleteExpense = async (eid) => {
+        try {
+            const expenseDeleted = await ExpenseModel.deleteOne({ _id: eid })
+
+            return expenseDeleted;
+
+        } catch (error) {
+            console.log(`Error in category.mongo: ${error.message}`);
+        }
+    }
 }

@@ -1,22 +1,14 @@
 import { Router } from 'express';
-import ExpensesModel from '../dao/mongo/models/expenses.model.js';
+import { get, create, getByCategory, deleteExpense } from '../controllers/expenses.controller.js';
 
 const router = Router();
 
-router.get('/', async (req, res) => {
-    const expenses = await ExpensesModel.find()
+router.get('/', get)
 
-    const result = expenses.length > 0 ? expenses : `There's nothing to show yet`
+router.get('/category/:category', getByCategory);
 
-    return res.status(200).send({ status: 'success', message: 'This will show all the expenses', payload: result })
-});
+router.post('/add', create);
 
-router.post('/add', async (req, res) => {
-    const newExpense = req.body
-
-    const addExpense = await ExpensesModel.create(newExpense)
-
-    return res.status(200).send({ status: 'success', message: 'New Expense Added', payload: addExpense });
-});
+router.delete('/delete/:id', deleteExpense)
 
 export default router

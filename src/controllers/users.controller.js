@@ -1,6 +1,5 @@
+import UserModel from "../dao/mongo/models/users.model.js";
 import { UserService } from "../repository/index.js"
-import { sendMail } from "../utils/nodemailer.js";
-
 
 export const get = async (req, res) => {
     try {
@@ -65,13 +64,16 @@ export const findByEmail = async (req, res) => {
 
 export const deleteUser = async (req, res) => {
     try {
-        const userId = req.params.id
+        const uid = req.params.id
+
+        const user = await UserModel.find({ _id: uid })
     
-        const userToDelete = await UserService.delete(userId)
+        const userToDelete = await UserService.delete(uid)
     
         return res.status(200).send({
             status: 'success',
             message: 'User deleted successfully',
+            payload: user
         });
     } catch (error) {
         return res.status(500).send({ status: 'error', error: error.message });

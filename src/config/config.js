@@ -24,4 +24,8 @@ export default {
     // Nodemailer
     TRANSPORT_USER: process.env.TRANSPORT_USER,
     HOTMAIL_TRANSPORT_PASS: process.env.HOTMAIL_TRANSPORT_PASS,
+    // IMAP
+    IMAP_HOST: process.env.IMAP_HOST,
+    IMAP_USER: process.env.IMAP_USER,
+    IMAP_PASSWORD: process.env.IMAP_PASSWORD
 }
