@@ -82,7 +82,7 @@ export const deleteUser = async (req, res) => {
 
 export const currentUser = async (req, res) => {
     try {
-        const user = req.session.user
+        const user = req.user
 
         if(!user) {
             return res.status(401).send({
@@ -91,7 +91,7 @@ export const currentUser = async (req, res) => {
             });
         }
 
-        const result = await UserService.find(user)
+        const result = await UserService.findByEmail(user.email)
 
         return res.status(200).send({
             status: 'success',

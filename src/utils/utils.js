@@ -19,6 +19,7 @@ export const passportCall = (strategy) => {
                 return res.status(401).send({ status: 'error', message: err.message })
             }
             req.user = user
+
             next()
         })(req, res, next)
     }
@@ -45,7 +46,7 @@ export const generateToken = (user) => {
     const token = jwt.sign({ user }, config.JWT_PASS, {
         expiresIn: '12h'
     })
-    // console.log({token});
+    // console.log(`GENERATED TOKEN`, {token});
     return token
 }
 
@@ -85,4 +86,8 @@ export const generateResetPasswordToken = (user) => {
     const token = jwt.sign(tokenInfo, config.JWT_PASS)
 
     return token;
+}
+
+export const getLoggedInUser = (token) => {
+
 }

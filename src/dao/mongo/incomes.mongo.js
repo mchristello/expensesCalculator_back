@@ -33,7 +33,7 @@ export default class Income {
         }
     }
 
-    deleteIncome = async (iid) => {
+    delete = async (iid) => {
         try {
             const incomeToDelete = await IncomeModel.deleteOne({ _id: iid });
 

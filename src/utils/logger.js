@@ -57,7 +57,7 @@ const productionLogger = winston.createLogger({
 })
 
 export const addLogger = (req, res, next) => {
-    const entorno = config.ENT
+    const entorno = config.ENTORNO
     if (entorno === 'DESARROLLO') {
         req.logger = devLogger
         const date = new Date();

@@ -74,8 +74,6 @@ export default class User {
             if(!user) {
                 return null
             }
-
-            console.log({user});
             return user;
         } catch (error) {
             console.log(`Error in users.mongo - FIND: ${error.message}`);

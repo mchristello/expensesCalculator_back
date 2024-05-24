@@ -6,8 +6,8 @@ export default class ExpenseRepository {
         this.dao = dao;
     }
 
-    get = async () => {
-        return this.dao.get();
+    get = async (user) => {
+        return this.dao.get(user);
     }
 
     create = async (data) => {
@@ -19,7 +19,7 @@ export default class ExpenseRepository {
         return this.dao.getByCategory(category);
     }
 
-    deleteExpense = async(eid) => {
+    delete = async(eid) => {
         return this.dao.deleteExpense(eid);
     }
 }

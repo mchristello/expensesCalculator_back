@@ -19,7 +19,6 @@ export const loginPost = async (req, res) => {
         if (!req.user) {
             return res.status(403).send({ status: 'error', message: 'Must be logged in.' })
         }
-
         req.session.user = {
             _id: req.user._id,
             first_name: req.user.first_name,
@@ -34,7 +33,6 @@ export const loginPost = async (req, res) => {
 
         const token = generateToken(user)
         user.token = token
-        console.log({user});
 
         return res.status(200).cookie(config.COOKIE_NAME, user.token).send({ status: 'success', message: `Cookie has been set successfully`, payload: user})
     } catch (error) {

@@ -3,7 +3,7 @@
 export const creditHandler = (html) => {
     try {
         // Config REGEX to extract info
-        // Extract the ammount
+        // Extract the amount
         // const importeRegex = /<b class="texto-negrita"><span>\$<\/span>\s*<span>([\d.,]+)<\/span><\/b>/;
         // const importeMatch = html.match(importeRegex);
         // let importe = null;
@@ -28,7 +28,7 @@ export const creditHandler = (html) => {
         const establecimientoMatch = html.match(establecimientoRegex);
         const establecimiento = establecimientoMatch ? establecimientoMatch[1].trim() : null;
 
-        // Extract the ammount
+        // Extract the amount
         const importeRegex = /por \$\s*([\d.,]+)/;
         const importeMatch = html.match(importeRegex);
         const importe = importeMatch ? parseFloat(importeMatch[1].replace(',', '')) : null;
@@ -40,13 +40,47 @@ export const creditHandler = (html) => {
 
         if(importe && date && establecimiento) {
             const movement = {
-                categoria: 'tarjeta de credito',
-                importe: importe,
-                fecha: date,
-                destino: establecimiento
+                category: 'tarjeta de credito',
+                amount: importe,
+                date: date,
+                destinedTo: establecimiento
             }
 
             // console.log({movement});
+            return movement
+        }
+    } catch (error) {
+        console.log(`ERROR EN EXTRACIÓN DE INFO -> creditHandler`);
+        return error.message;
+    }
+}
+
+export const debitCardHandler = (html) => {
+    try {
+        // Extract the name of the shop
+        const establecimientoRegex = /en el establecimiento\s+([^,]+)\s+por/i;
+        const establecimientoMatch = html.match(establecimientoRegex);
+        const establecimiento = establecimientoMatch ? establecimientoMatch[1].trim() : null;
+
+        // Extract the amount
+        const importeRegex = /por \$\s*([\d.,]+)/;
+        const importeMatch = html.match(importeRegex);
+        const importe = importeMatch ? parseFloat(importeMatch[1].replace(',', '')) : null;
+
+        // // Extract the date of the movment
+        const dateRegex = /el (\d{1,2}\/\d{1,2}\/\d{2,4})/;
+        const dateMatch = html.match(dateRegex);
+        const date = dateMatch ? dateMatch[1] : null;
+
+        if(importe && date && establecimiento) {
+            const movement = {
+                category: 'tarjeta de débito',
+                amount: importe,
+                date: date,
+                destinedTo: establecimiento
+            }
+
+            // console.log(`FROM DEBIT CARD HANDLER: `, {movement});
             return movement
         }
     } catch (error) {
@@ -78,10 +112,10 @@ export const debitHandler = (html) => {
 
         if (fecha && importe !== null && destinatario) {
             const debit = {
-                categoria: 'debito en cuenta',
-                fecha: fecha,
-                importe: importe,
-                destino: destinatario
+                category: 'debito en cuenta',
+                date: fecha,
+                amount: importe,
+                destinedTo: destinatario
             };
 
             return debit
@@ -115,10 +149,10 @@ export const transferHandler = (html) => {
 
         if (fecha && importe !== null && destino) {
             const transfer = {
-                categoria: 'transferencia desde banco',
-                fecha: fecha,
-                importe: importe,
-                destino: destino
+                category: 'transferencia desde banco',
+                date: fecha,
+                amount: importe,
+                destinedTo: destino
             };
 
             return transfer
@@ -152,10 +186,10 @@ export const bankTransferHandler = (html) => {
         
         if (fechaHora && importe !== null && destinatario) {
             const transfer = {
-                categoria: 'transferencia desde banco',
-                fecha: fechaHora,
-                importe: importe,
-                destino: destinatario
+                category: 'transferencia desde banco',
+                date: fechaHora,
+                amount: importe,
+                destinedTo: destinatario
             };
             return transfer;
         }

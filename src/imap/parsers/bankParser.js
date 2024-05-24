@@ -5,8 +5,8 @@ import { bankTransferHandler, cardResumeHandler, debitHandler, transferHandler }
 export const parserBankMovement = (stream, callback) => {
     simpleParser(stream, (err, mail) => {
         if (err) {
-            console.error(err);
-            return false;
+            console.error(err.message);
+            throw new Error(err.message);
         }
 
         const html = mail.html;

@@ -37,6 +37,7 @@ const initializePassport = () => {
                 email: email,
                 age: age,
                 social: 'local',
+                rol: 'user',
                 password: createHash(password),
             }
 
@@ -55,7 +56,7 @@ const initializePassport = () => {
     },
     async (username, password, done) => {
         try {
-            const user = await UserService.find(username)
+            const user = await UserService.findByEmail(username)
             if(!user) {
                 return done(null, false)
             }
@@ -63,7 +64,7 @@ const initializePassport = () => {
             if(!validatePassword(user, password)) {
                 return done(null, false)
             }
-
+            
             return done(null, user)
 
         } catch (error) {
@@ -79,7 +80,6 @@ const initializePassport = () => {
     async (jwt_payload, done) =>{
         try {
             const user = jwt_payload
-            console.log({user});
             return done(null, user)
         } catch (error) {
             return done(error)

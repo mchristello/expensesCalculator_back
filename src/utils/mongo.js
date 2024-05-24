@@ -5,7 +5,6 @@ export const connectMongo = async() => {
     try {
         set('strictQuery', false);
         await connect(config.MONGO_URI, { dbName: config.DB_NAME });
-        set('strictQuery', true);
 
         console.log('Connection to MongoDB, checked.')
     } catch (error) {

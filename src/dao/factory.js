@@ -17,6 +17,8 @@ switch(config.PERSISTENCE) {
         Income = Incomefile
         User = Userfile
 
+        console.log(`Connected to local FileSystem....`);
+
         break;
 
     default: // default: 'MONGO'

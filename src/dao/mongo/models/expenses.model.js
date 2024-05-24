@@ -3,10 +3,6 @@ import mongoose from "mongoose";
 const expenseCollection = 'expenses';
 
 const expensesSchema = new mongoose.Schema({
-    description: {
-        type: String,
-        require: true
-    },
     amount: {
         type: Number,
         required: true
@@ -16,14 +12,16 @@ const expensesSchema = new mongoose.Schema({
         required: true
     },
     date: {
-        type: Date,
-        default: Date.now
+        type: String,
+        default: ''
+    },
+    destinedTo: {
+        type: String,
+        required: true
     },
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'users',
-        required: true,
-        default: null
     }
 });
 

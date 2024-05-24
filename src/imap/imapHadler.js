@@ -2,6 +2,7 @@ import imap from "./imapClient.js";
 import { parserCardMovement } from "./parsers/cardParser.js";
 import { parserBankMovement } from "./parsers/bankParser.js";
 
+
 imap.once('ready', () => {
     console.log(`Established connection witn IMAP...`);
     imap.openBox('INBOX', true, (err, box) => {

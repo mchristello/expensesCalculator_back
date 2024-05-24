@@ -5,7 +5,7 @@ dotenv.config();
 export default {
     PORT: process.env.PORT,
     SECRET_KEY: process.env.SECRET_KEY,
-    ENTORNO: process.env.ENTORNO,
+    ENTORNO: process.env.ENT,
     PERSISTENCE: process.env.PERSISTENCE,
     // Mongo
     MONGO_URI: process.env.MONGO_URI,

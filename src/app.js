@@ -13,8 +13,7 @@ import { passportCall } from './utils/utils.js';
 import { __dirname } from './dirname.js';
 import { addLogger } from './utils/logger.js';
 import imap from './imap/imapHadler.js';
-import { bankProcessHandler } from './imap/processHandler/bankProcessHandler.js';
-import { cardProcessHandler } from './imap/processHandler/cardProcessHandler.js';
+import { ExpensesService } from './repository/index.js';
 // Import Rutes
 import expensesRouter from './routes/expenses.routes.js';
 import incomesRouter from './routes/incomes.routes.js';
@@ -60,17 +59,17 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Imap
-imap.on('bankParser', async (transferencia) => {
-    // lógica para transferencias
-    console.log('Transfer detected. Sent to processHandler');
-    bankProcessHandler.add(transferencia);
-});
+// imap.on('bankParser', async (transferencia) => {
+//     // lógica para transferencias
+//     console.log('Transfer detected. Sent to EXPENSES.SERVICE.CREATE()');
+//     ExpensesService.create(transferencia);
+// });
 
-imap.on('cardParser', (creditCharge) => {
-    // lógica para débitos
-    console.log('Purchase with card detected. Sent to processHandler');
-    cardProcessHandler.add(creditCharge);
-});
+// imap.on('cardParser', async (creditCharge) => {
+//     // lógica para débitos
+//     console.log('Purchase with card detected. Sent to EXPENSES.SERVICE.CREATE()');
+//     ExpensesService.create(creditCharge);
+// });
 
 
 // Rutes
@@ -78,12 +77,12 @@ app.get('/', (req, res) => {
     return res.status(200).send({ status: 'success', message: 'This should be the homepage' });
 });
 
-app.use('/api/expenses', expensesRouter);
+app.use('/api/expenses', passportCall('jwt'), expensesRouter);
 
-app.use('/api/incomes', incomesRouter);
+app.use('/api/incomes', passportCall('jwt'), incomesRouter);
 
 app.use('/api/users', passportCall('jwt'), usersRouter);
 
 app.use('/session', passportCall('jwt'), sessionRouter);
 
-app.use('/api/imap', emailRouter);
+app.use('/api/imap', passportCall('jwt'), emailRouter);
