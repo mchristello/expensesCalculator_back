@@ -41,6 +41,7 @@ export default class Expense {
             amount: movement.amount,
             date: movement.date,
             destinedTo: movement.destinedTo,
+            comment: movement.comment,
             user: movement.user
         };
 

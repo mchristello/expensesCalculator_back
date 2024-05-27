@@ -24,8 +24,6 @@ export default class Income {
         return [];
     }
 
-
-
     get = async () => {
         const data = await this.#read();
         return data;
@@ -40,7 +38,9 @@ export default class Income {
             category: movement.category,
             amount: movement.amount,
             date: movement.date,
-            dastinedTo: movement.dastinedTo,
+            from: movement.from,
+            comment: movement.comment,
+            user: movement.user
         };
 
         data.push(newMovement);

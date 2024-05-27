@@ -5,6 +5,7 @@ export default class ExpenseDTO {
         this.category = expense.category || '';
         this.date = expense.date;
         this.destinedTo = expense.destinedTo || '',
+        this.comment = expense.comment || '';
         this.user = expense.user || null;
     }
 }

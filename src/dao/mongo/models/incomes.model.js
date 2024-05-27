@@ -19,6 +19,7 @@ const incomesSchema = new mongoose.Schema({
     },
     comment: {
         type: String,
+        default: ''
     },
     user: {
         type: mongoose.Schema.Types.ObjectId,

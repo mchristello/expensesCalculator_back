@@ -6,6 +6,7 @@ export default class IncomeDTO {
         this.category = income.category || '';
         this.date = income.date;
         this.from = income.from || '';
+        this.comment = income.comment || '';
         this.user = income.user || '';
     }
 }
