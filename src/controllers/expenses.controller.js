@@ -17,7 +17,9 @@ export const get = async (req, res) => {
 export const create = async (req, res) => {
     try {
         const data = req.body;
-        const user = req.session
+        const user = req.user
+        
+        data.user = user._id;
         
         const expense = await ExpensesService.create(data)
     
@@ -30,6 +32,7 @@ export const create = async (req, res) => {
 export const getByCategory = async (req, res) => {
     try {
         const category = req.params.category
+        console.log({category});
 
         const searchExpenses = await ExpensesService.getByCategory(category.toLowerCase())
 

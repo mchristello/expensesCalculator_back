@@ -13,6 +13,7 @@ export default class Expense {
 
     create = async (expenseFromDTO) => {
         try {
+            // console.log({expenseFromDTO});
             const newExpense = await ExpenseModel.create(expenseFromDTO)
             newExpense.save();
 
