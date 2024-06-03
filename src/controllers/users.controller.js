@@ -83,7 +83,6 @@ export const deleteUser = async (req, res) => {
 export const currentUser = async (req, res) => {
     try {
         const user = req.user
-
         if(!user) {
             return res.status(401).send({
                 status: 'error',

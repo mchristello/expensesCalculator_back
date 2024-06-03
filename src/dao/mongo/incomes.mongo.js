@@ -33,11 +33,22 @@ export default class Income {
         }
     }
 
+    update = async (iid, data) => {
+        try {
+            const updateIncome = await IncomeModel.updateOne({ _id: iid }, data);
+            console.log({updateIncome});
+
+            return true
+        } catch (error) {
+            console.log(`Error in incomes.mongo: ${error.message}`);
+        }
+    }
+
     delete = async (iid) => {
         try {
             const incomeToDelete = await IncomeModel.deleteOne({ _id: iid });
 
-            return incomeToDelete
+            return true
         } catch (error) {
             console.log(`Error in incomes.mongo: ${error.message}`);
         }

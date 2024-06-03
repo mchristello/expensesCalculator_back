@@ -5,9 +5,8 @@ export const get = async (req, res) => {
     try {
         const incomes = await IncomesSerivce.get();
 
-        const result = incomes.length > 0 ? incomes : 'There are no incomes yet.'
 
-        return res.status(200).send({ status: 'success', message: 'Here you can see all the incomes of the DB', payload: result })
+        return res.status(200).send({ status: 'success', message: 'Here you can see all the incomes of the DB', payload: incomes })
     } catch (error) {
         console.log(`Error in incomes.controller: ${error.message}`);
     }
@@ -16,10 +15,12 @@ export const get = async (req, res) => {
 export const create = async (req, res) => {
     try {
         const data = req.body;
+        const user = req.user
+
+        data.user = user._id
+        const income = await IncomesSerivce.create(data)
     
-        const user = await IncomesSerivce.create(data)
-    
-        return res.status(200).send({ status: 'success', message: 'New user created successfully', payload: user })
+        return res.status(200).send({ status: 'success', message: 'New user created successfully', payload: income })
     } catch (error) {
         console.log(`Error in incomes.controller: ${error.message}`);
     }
@@ -41,10 +42,23 @@ export const getByCategory = async (req, res) => {
     }
 }
 
+export const update = async (req, res) => {
+    try {
+        const changes = req.body;
+        const iid = req.params.id;
+
+        const updateIncome = await IncomesSerivce.update(iid, changes)
+
+        return res.status(200).send({ status: 'success', message: 'Updated...', payload: updateIncome})
+    } catch (error) {
+        console.log(`Error in incomes.controller: ${error.message}`)
+        return res.satatus(500).send({ status: 'error', message: error.message })
+    }
+}
+
 export const deleteIncome = async (req, res) => {
     try {
-        const iid = req.query.id
-
+        const iid = req.params.id
         const incomeToDelete = await IncomesSerivce.deleteIncome(iid)
 
         return res.status(200).send({ status: 'success', message: `Income deleted`, payload: incomeToDelete })

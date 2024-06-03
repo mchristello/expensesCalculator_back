@@ -2,27 +2,6 @@
 
 export const creditHandler = (html) => {
     try {
-        // Config REGEX to extract info
-        // Extract the amount
-        // const importeRegex = /<b class="texto-negrita"><span>\$<\/span>\s*<span>([\d.,]+)<\/span><\/b>/;
-        // const importeMatch = html.match(importeRegex);
-        // let importe = null;
-            
-        // if (importeMatch) {
-        //     // Deletes $ sign and keeps , as separator
-        //     importe = parseFloat(importeMatch[1].replace(/\$|[^0-9,]/g, ''));
-        // }
-
-        // // Extract the date of the movment
-        // const dateRegex = /<b class="texto-negrita"><span>(\d{2}\/\d{2}\/\d{4})<\/b>/;
-        // const dateMatch = html.match(dateRegex);
-        // const date = dateMatch ? dateMatch[1] : null;
-
-        // // Extract the name of the shop
-        // const establecimientoRegex = /<b class="texto-negrita"><span>([^<]+)<\/span><\/b>/;
-        // const establecimientoMatch = html.match(establecimientoRegex);
-        // const establecimiento = establecimientoMatch ? establecimientoMatch[1].trim() : null;
-
         // Extract the name of the shop
         const establecimientoRegex = /en el establecimiento\s+([^,]+)\s+por/i;
         const establecimientoMatch = html.match(establecimientoRegex);
@@ -127,7 +106,6 @@ export const debitHandler = (html) => {
 }
 
 export const transferHandler = (html) => {
-    // console.log(html);
     try {
         const fechaRegex = /Fecha\s*<br><br><\/td>\s*<td.*?>(.*?)\s*<br><br><\/td>/;
         const fechaMatch = html.match(fechaRegex);

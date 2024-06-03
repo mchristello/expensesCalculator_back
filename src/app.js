@@ -58,20 +58,6 @@ initializePassport();
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Imap
-// imap.on('bankParser', async (transferencia) => {
-//     // lógica para transferencias
-//     console.log('Transfer detected. Sent to EXPENSES.SERVICE.CREATE()');
-//     ExpensesService.create(transferencia);
-// });
-
-// imap.on('cardParser', async (creditCharge) => {
-//     // lógica para débitos
-//     console.log('Purchase with card detected. Sent to EXPENSES.SERVICE.CREATE()');
-//     ExpensesService.create(creditCharge);
-// });
-
-
 // Rutes
 app.get('/', (req, res) => {
     return res.status(200).send({ status: 'success', message: 'This should be the homepage' });

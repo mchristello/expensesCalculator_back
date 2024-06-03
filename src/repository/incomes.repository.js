@@ -18,7 +18,11 @@ export default class IncomeRepository {
         return this.dao.getByCategory(category);
     }
 
+    update = async (id, data) => {
+        return this.dao.update(id, data);
+    }
+
     deleteIncome = async (iid) => {
-        return this.dao.deleteIncome(iid);
+        return this.dao.delete(iid);
     }
 }

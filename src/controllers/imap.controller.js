@@ -1,6 +1,5 @@
 import imap from "../imap/imapClient.js";
 import { ExpensesService } from "../repository/index.js";
-// import { bankProccessHandler } from '../dao/file/bankProcessHandler.js';
 
 export const get = async(req, res) => {
     try {
@@ -28,14 +27,3 @@ export const get = async(req, res) => {
         return res.status(500).send({ status: 'error', message: 'Couldn\'t connect to email account', payload: error.message });
     }
 }
-
-// export const getInfo = async(req, res) => {
-//     try {
-//         const response = await bankProccessHandler.getInfo();
-
-//         return res.status(200).send({ status: 'success', message: 'Retriving movements info...', payload: response });
-//     } catch (error) {
-//         console.log(`Error in imap.controller - getInfo: ${error.message}`);
-//         return res.status(500).send({ status: 'error', message: 'Couldn\'t connect to email account', payload: error.message });
-//     }
-// }

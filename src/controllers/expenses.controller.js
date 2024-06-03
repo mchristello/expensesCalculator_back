@@ -32,7 +32,6 @@ export const create = async (req, res) => {
 export const getByCategory = async (req, res) => {
     try {
         const category = req.params.category
-        console.log({category});
 
         const searchExpenses = await ExpensesService.getByCategory(category.toLowerCase())
 
@@ -44,11 +43,24 @@ export const getByCategory = async (req, res) => {
     }
 }
 
+export const update = async (req, res) => {
+    try {
+        const changes = req.body;
+        const eid = req.params.id
+
+        const updateExpense = await ExpensesService.update(eid, changes)
+
+        return res.status(200).send({ status: 'success', message: `Updated...`, payload: updateExpense });
+
+    } catch (error) {
+        console.log(`Error in expenses.controller: ${error.message}`);
+    }
+}
+
 export const deleteExpense = async (req, res) => {
     try {
         const eid = req.params.id
-
-        const expenseToDelete = await ExpensesService.deleteExpense(eid)
+        const expenseToDelete = await ExpensesService.delete(eid)
 
         return res.status(200).send({ status: 'success', message: 'Expense deleted successfully', payload: expenseToDelete })
     } catch (error) {

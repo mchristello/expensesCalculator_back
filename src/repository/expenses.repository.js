@@ -6,6 +6,10 @@ export default class ExpenseRepository {
         this.dao = dao;
     }
 
+    getById = async (id) => {
+        return this.dao.getById(id);
+    }
+
     get = async (user) => {
         return this.dao.get(user);
     }
@@ -19,7 +23,11 @@ export default class ExpenseRepository {
         return this.dao.getByCategory(category);
     }
 
+    update = async (eid, data) => {
+        return this.dao.update(eid, data);
+    }
+
     delete = async(eid) => {
-        return this.dao.deleteExpense(eid);
+        return this.dao.delete(eid);
     }
 }

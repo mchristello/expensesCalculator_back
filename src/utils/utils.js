@@ -59,6 +59,7 @@ export const authToken = (req, res, next) => {
 
     const token = userToken.split(" ")[1]
 
+
     jwt.verify(token, config.JWT_PASS, (err, credentials) => {
         if(err) {
             err = {
