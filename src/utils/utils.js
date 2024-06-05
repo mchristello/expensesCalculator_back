@@ -33,7 +33,7 @@ export const authRole = (role) => (req, res, next) => {
 
     const userRole = req.user.role
 
-    if (userRole !== role) {
+    if (userRole.toUpperCase() !== role) {
         return res.status(403).send({ status: 'error', message: 'User Unauthorized - Role check FAILED.' })
     }
 
@@ -52,13 +52,11 @@ export const generateToken = (user) => {
 
 export const authToken = (req, res, next) => {
     const userToken = req.headers['authorization']
-
     if(!userToken) {
         return res.status(401).send({ status: 'error', error: "Unauthorized - No Credentials Provided." });
     }
 
     const token = userToken.split(" ")[1]
-
 
     jwt.verify(token, config.JWT_PASS, (err, credentials) => {
         if(err) {

@@ -4,22 +4,21 @@ import session from 'express-session';
 import cors from 'cors';
 import MongoStore from 'connect-mongo';
 import cookieParser from 'cookie-parser';
+import passport from 'passport';
 // Import utils
 import config from './config/config.js';
-import passport from 'passport';
 import initializePassport from './config/passport.config.js';
 import errorHandler from './middlewares/errors.middleware.js'
 import { passportCall } from './utils/utils.js';
 import { __dirname } from './dirname.js';
 import { addLogger } from './utils/logger.js';
-import imap from './imap/imapHadler.js';
-import { ExpensesService } from './repository/index.js';
 // Import Rutes
 import expensesRouter from './routes/expenses.routes.js';
 import incomesRouter from './routes/incomes.routes.js';
 import usersRouter from './routes/users.routes.js';
 import sessionRouter from './routes/sessions.routes.js';
 import emailRouter from './routes/imap.routes.js';
+import financeRouter from './routes/finance.routes.js';
 
 
 const app = express();
@@ -69,6 +68,8 @@ app.use('/api/incomes', passportCall('jwt'), incomesRouter);
 
 app.use('/api/users', passportCall('jwt'), usersRouter);
 
-app.use('/session', passportCall('jwt'), sessionRouter);
-
 app.use('/api/imap', passportCall('jwt'), emailRouter);
+
+app.use('/api/finance', passportCall('jwt'), financeRouter);
+
+app.use('/session', passportCall('jwt'), sessionRouter);

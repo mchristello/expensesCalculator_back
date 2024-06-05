@@ -5,7 +5,7 @@ export const get = async(req, res) => {
     try {
         const fetchEmails = imap.connect();
 
-        const user = req.user;
+        const user = req.session.user;
 
         imap.on('bankParser', async (transferencia) => {
             transferencia.user = user;

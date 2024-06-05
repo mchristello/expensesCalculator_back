@@ -36,7 +36,6 @@ export default class Income {
     update = async (iid, data) => {
         try {
             const updateIncome = await IncomeModel.updateOne({ _id: iid }, data);
-            console.log({updateIncome});
 
             return true
         } catch (error) {

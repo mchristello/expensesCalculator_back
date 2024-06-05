@@ -3,8 +3,6 @@ import { generateToken } from "../utils/utils.js";
 
 export const registerPost = async (req, res) => {
     try {
-        console.log(`This is REQ.USER: `, req.user);
-
         const user = req.user
 
         return res.status(200).send({ status: 'success', message: 'New user created successfully', payload: user })
@@ -26,7 +24,7 @@ export const loginPost = async (req, res) => {
             email: req.user.email,
             age: req.user.age,
             social: req.user.social,
-            rol: req.user.rol,
+            role: req.user.role,
         }
 
         const user = { ...req.session.user }

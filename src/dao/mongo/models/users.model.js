@@ -1,35 +1,6 @@
 import mongoose from "mongoose";
 
 
-
-const financialInfoSchema = new mongoose.Schema({
-    accountBalance: {
-        type: Number,
-        default: 0
-    },
-    savings: {
-        $: {
-            type: Number,
-            default: 0
-        },
-        US$: {
-            type: Number,
-            default: 0
-        }
-    },
-    investments: [{
-        name: {
-            type: String,
-            required: true
-        },
-        value: {
-            type: Number,
-            default: 0
-        }
-    }]
-}, { _id: false });
-
-
 const userSchema = new mongoose.Schema({
     first_name: String, 
     last_name: String,
@@ -48,12 +19,14 @@ const userSchema = new mongoose.Schema({
         default: 'user'
     },
     financialInfo: {
-        type: [financialInfoSchema],
-        default: []
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'finance',
     }
 });
 
-
+userSchema.pre('find', function() {
+    this.populate('finance')
+});
 
 const UserModel = mongoose.model('users', userSchema);
 

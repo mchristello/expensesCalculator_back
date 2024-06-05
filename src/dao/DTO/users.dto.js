@@ -8,6 +8,6 @@ export default class UserDTO {
         this.age = user.age;
         this.social = user.social || 'local';
         this.role = user.role || 'user';
-        this.financialInfo = user.financialInfo || [];
+        this.financialInfo = user.financialInfo !== undefined ? user.financialInfo : null;
     }
 }

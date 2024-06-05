@@ -37,7 +37,7 @@ const initializePassport = () => {
                 email: email,
                 age: age,
                 social: 'local',
-                rol: 'user',
+                role: 'user',
                 password: createHash(password),
             }
 

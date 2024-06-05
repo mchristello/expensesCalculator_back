@@ -82,7 +82,7 @@ export const deleteUser = async (req, res) => {
 
 export const currentUser = async (req, res) => {
     try {
-        const user = req.user
+        const user = req.session.user
         if(!user) {
             return res.status(401).send({
                 status: 'error',

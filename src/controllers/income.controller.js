@@ -5,7 +5,6 @@ export const get = async (req, res) => {
     try {
         const incomes = await IncomesSerivce.get();
 
-
         return res.status(200).send({ status: 'success', message: 'Here you can see all the incomes of the DB', payload: incomes })
     } catch (error) {
         console.log(`Error in incomes.controller: ${error.message}`);
@@ -15,7 +14,7 @@ export const get = async (req, res) => {
 export const create = async (req, res) => {
     try {
         const data = req.body;
-        const user = req.user
+        const user = req.session.user
 
         data.user = user._id
         const income = await IncomesSerivce.create(data)
